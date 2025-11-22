@@ -936,3 +936,7 @@ body {
     font-weight: 500;
     color: var(--text-color);
 }
+
+.t_n {
+    text-decoration: none;
+}

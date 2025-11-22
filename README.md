@@ -63,7 +63,7 @@ This is a simple social network web application prototype that enables user regi
 
 ## Notes
 
-- All data is stored locally in the browser's localStorage; refreshing or clearing browser data will erase users and posts.
+- All data is stored locally in the browser's localStorage; clearing browser data will erase users and posts.
 - Image uploads are handled as base64 data URLs stored in localStorage.
 - This is a prototype and not meant for production use.
 
@@ -76,4 +76,4 @@ This is a simple social network web application prototype that enables user regi
 
 ---
 
-_Created by AliMazhar (example author), Social Network Demo Project._
+_Created by Syed Muhammad ALi, Social Network Demo Project._

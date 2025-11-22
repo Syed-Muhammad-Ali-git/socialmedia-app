@@ -251,20 +251,27 @@ function savePosts() {
   localStorage.setItem("posts", JSON.stringify(posts));
 }
 
+// Helper function to check if a string is a valid image URL
+function isValidImageUrl(url) {
+  return /\.(jpeg|jpg|gif|png)$/i.test(url);
+}
+
 // Create a new post
 function createPost() {
   const postText = document.getElementById("postText");
   const postImageInput = document.getElementById("postImage");
+  const postImageUrlInput = document.getElementById("postImageUrl");
   const imageFileName = document.getElementById("imageFileName");
 
   const text = postText.value.trim();
   const imageFile = postImageInput.files[0];
+  const imageUrl = postImageUrlInput.value.trim();
 
-  if (!text && !imageFile) {
+  if (!text && !imageFile && !imageUrl) {
     Swal.fire({
       icon: "warning",
       title: "Empty Post",
-      text: "Please add some text or an image to your post.",
+      text: "Please add some text, an image, or an image URL to your post.",
       confirmButtonColor: "#344F7E",
     });
     return;
@@ -283,7 +290,6 @@ function createPost() {
     timestamp: new Date().toISOString(),
   };
 
-  // Handle image upload
   if (imageFile) {
     const reader = new FileReader();
     reader.onload = function (e) {
@@ -294,6 +300,12 @@ function createPost() {
       resetPostForm();
     };
     reader.readAsDataURL(imageFile);
+  } else if (imageUrl && isValidImageUrl(imageUrl)) {
+    newPost.image = imageUrl;
+    posts.unshift(newPost);
+    savePosts();
+    renderPosts();
+    resetPostForm();
   } else {
     posts.unshift(newPost);
     savePosts();
@@ -306,6 +318,7 @@ function createPost() {
 function resetPostForm() {
   document.getElementById("postText").value = "";
   document.getElementById("postImage").value = "";
+  document.getElementById("postImageUrl").value = "";
   document.getElementById("imageFileName").textContent = "";
 }
 

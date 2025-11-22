@@ -36,7 +36,11 @@
         <!-- left main logo -->
         <span class="navbar-brand d-flex align-items-center">
           <i class="fas fa-users me-2"></i>Social Network
-          <button id="quickLinksToggleBtn" class="btn btn-outline-light btn-sm ms-3 d-lg-none" title="Toggle Quick Links">
+          <button
+            id="quickLinksToggleBtn"
+            class="btn btn-outline-light btn-sm ms-3 d-lg-none"
+            title="Toggle Quick Links"
+          >
             <i class="fas fa-bars"></i>
           </button>
         </span>
@@ -79,11 +83,17 @@
     <div class="container-fluid main-container">
       <div class="row">
         <!-- Left Sidebar -->
-        <div class="col-lg-3 col-md-4 d-none d-md-block sidebar" id="quickLinksSidebar">
+        <div
+          class="col-lg-3 col-md-4 d-none d-md-block sidebar"
+          id="quickLinksSidebar"
+        >
           <div class="card mb-3">
             <div class="card-body text-center">
               <div class="profile-pic mb-3 position-relative">
-                <label for="avatarUpload" class="avatar-upload-label position-relative">
+                <label
+                  for="avatarUpload"
+                  class="avatar-upload-label position-relative"
+                >
                   <img
                     id="profileAvatar"
                     src=""
@@ -91,7 +101,13 @@
                     class="avatar-image"
                     style="display: none"
                   />
-                  <button type="button" id="removeAvatarBtn" title="Remove Avatar" class="btn btn-danger btn-sm position-absolute top-0 end-0 translate-middle rounded-circle p-1" style="display:none; z-index:10;">
+                  <button
+                    type="button"
+                    id="removeAvatarBtn"
+                    title="Remove Avatar"
+                    class="btn btn-danger btn-sm position-absolute top-0 end-0 translate-middle rounded-circle p-1"
+                    style="display: none; z-index: 10"
+                  >
                     <i class="fas fa-times"></i>
                   </button>
                   <i
@@ -115,19 +131,27 @@
           </div>
 
           <div class="card">
-            <div class="card-header bg-primary text-white d-flex align-items-center justify-content-between">
+            <div
+              class="card-header bg-primary text-white d-flex align-items-center justify-content-between"
+            >
               Quick Links
             </div>
             <ul class="list-group list-group-flush">
-              <li class="list-group-item">
-                <i class="fas fa-home me-2 text-primary"></i>Home Feed
-              </li>
-              <li class="list-group-item">
-                <i class="fas fa-user-friends me-2 text-primary"></i>Friends
-              </li>
-              <li class="list-group-item">
-                <i class="fas fa-bell me-2 text-primary"></i>Notifications
-              </li>
+              <a href="./index.html" class="t_n">
+                <li class="list-group-item">
+                  <i class="fas fa-home me-2 text-primary"></i>Home Feed
+                </li>
+              </a>
+              <a href="./friends.html" class="t_n">
+                <li class="list-group-item">
+                  <i class="fas fa-user-friends me-2 text-primary"></i>Friends
+                </li>
+              </a>
+              <a href="./notification.html" class="t_n">
+                <li class="list-group-item">
+                  <i class="fas fa-bell me-2 text-primary"></i>Notifications
+                </li>
+              </a>
             </ul>
           </div>
         </div>
@@ -178,7 +202,16 @@
                     class="text-muted small align-self-center"
                   ></span>
                 </div>
-                <button class="btn btn-primary" onclick="createPost()">
+
+                <!-- Added input for image URL -->
+                <input
+                  type="text"
+                  id="postImageUrl"
+                  class="form-control form-control-sm ms-3"
+                  placeholder="Image URL"
+                  style="max-width: 150px"
+                />
+                <button class="btn btn-primary ms-3" onclick="createPost()">
                   <i class="fas fa-paper-plane me-1"></i>Post
                 </button>
               </div>
