@@ -12,7 +12,7 @@
       integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
       crossorigin="anonymous"
     />
-    
+
     <!-- Font Awesome for icons -->
     <link
       rel="stylesheet"
@@ -76,7 +76,12 @@
                     Show Password
                   </label>
                 </div>
-                <a href="#" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal">Forgot password?</a>
+                <a
+                  href="#"
+                  data-bs-toggle="modal"
+                  data-bs-target="#forgotPasswordModal"
+                  >Forgot password?</a
+                >
               </div>
 
               <!-- Error message paragraph -->
@@ -116,17 +121,36 @@
       crossorigin="anonymous"
     ></script>
     <!-- Forgot Password Modal -->
-    <div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotPasswordModalLabel" aria-hidden="true">
+    <div
+      class="modal fade"
+      id="forgotPasswordModal"
+      tabindex="-1"
+      aria-labelledby="forgotPasswordModalLabel"
+      aria-hidden="true"
+    >
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-          <div class="modal-header" style="background: linear-gradient(to right, #344F7E, #273A5C); color: white;">
+          <div
+            class="modal-header"
+            style="
+              background: linear-gradient(to right, #344f7e, #273a5c);
+              color: white;
+            "
+          >
             <h5 class="modal-title" id="forgotPasswordModalLabel">
               <i class="fas fa-key me-2"></i>Forgot Password
             </h5>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
           </div>
           <div class="modal-body">
-            <p class="mb-3">Enter your email address to retrieve your password.</p>
+            <p class="mb-3">
+              Enter your email address to retrieve your password.
+            </p>
             <div class="form-group mb-3">
               <label for="forgotEmail" class="form-label">Email address</label>
               <input
@@ -137,11 +161,25 @@
                 required
               />
             </div>
-            <div id="forgotPasswordResult" class="alert" style="display: none;"></div>
+            <div
+              id="forgotPasswordResult"
+              class="alert"
+              style="display: none"
+            ></div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" onclick="retrievePassword()">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              onclick="retrievePassword()"
+            >
               <i class="fas fa-search me-1"></i>Retrieve Password
             </button>
           </div>
@@ -151,7 +189,7 @@
 
     <!-- SweetAlert2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
+
     <!-- custom js link -->
     <script src="../assets/js/login.js"></script>
   </body>

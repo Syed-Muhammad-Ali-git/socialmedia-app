@@ -263,13 +263,19 @@ function createPostHTML(post) {
     <div class="card post-card" data-post-id="${post.id}">
       <div class="post-header">
         <div class="post-author-pic">
-          ${authorAvatar ? `<img src="${authorAvatar}" alt="Avatar" class="post-avatar-img" />` : `<i class="fas fa-user"></i>`}
+          ${
+            authorAvatar
+              ? `<img src="${authorAvatar}" alt="Avatar" class="post-avatar-img" />`
+              : `<i class="fas fa-user"></i>`
+          }
         </div>
         <div class="post-author-info">
           <h6 class="post-author-name">${escapeHtml(post.author.name)}</h6>
           <p class="post-time">${timeAgo}</p>
         </div>
-        ${isOwner ? `
+        ${
+          isOwner
+            ? `
         <div class="post-menu-dropdown">
           <button class="post-menu-btn" onclick="togglePostMenu('${post.id}')">
             <i class="fas fa-ellipsis-v"></i>
@@ -283,7 +289,9 @@ function createPostHTML(post) {
             </button>
           </div>
         </div>
-        ` : ''}
+        `
+            : ""
+        }
       </div>
       <div class="post-content">
         ${post.text ? `<p class="post-text">${escapeHtml(post.text)}</p>` : ""}
@@ -313,7 +321,9 @@ function createPostHTML(post) {
         post.id
       }" style="display: none;">
         <div class="comments-list" id="comments-list-${post.id}">
-          ${post.comments.map((comment) => createCommentHTML(comment, post.id)).join("")}
+          ${post.comments
+            .map((comment) => createCommentHTML(comment, post.id))
+            .join("")}
         </div>
         <div class="comment-input-group">
           <input
@@ -336,19 +346,29 @@ function createPostHTML(post) {
 function createCommentHTML(comment, postId) {
   const isOwner = comment.author.email === currentUser.email;
   const authorAvatar = getUserAvatar(comment.author.email);
-  
+
   return `
     <div class="comment-item" data-comment-id="${comment.id}">
       <div class="comment-author-pic">
-        ${authorAvatar ? `<img src="${authorAvatar}" alt="Avatar" class="comment-avatar-img" />` : `<i class="fas fa-user"></i>`}
+        ${
+          authorAvatar
+            ? `<img src="${authorAvatar}" alt="Avatar" class="comment-avatar-img" />`
+            : `<i class="fas fa-user"></i>`
+        }
       </div>
       <div class="comment-content">
         <div class="d-flex justify-content-between align-items-start">
           <div>
-            <h6 class="comment-author-name">${escapeHtml(comment.author.name)}</h6>
-            <p class="comment-text" id="comment-text-${comment.id}">${escapeHtml(comment.text)}</p>
+            <h6 class="comment-author-name">${escapeHtml(
+              comment.author.name
+            )}</h6>
+            <p class="comment-text" id="comment-text-${
+              comment.id
+            }">${escapeHtml(comment.text)}</p>
           </div>
-          ${isOwner ? `
+          ${
+            isOwner
+              ? `
           <div class="comment-menu-dropdown">
             <button class="comment-menu-btn" onclick="toggleCommentMenu('${postId}', '${comment.id}')">
               <i class="fas fa-ellipsis-v"></i>
@@ -362,7 +382,9 @@ function createCommentHTML(comment, postId) {
               </button>
             </div>
           </div>
-          ` : ''}
+          `
+              : ""
+          }
         </div>
       </div>
     </div>
@@ -471,12 +493,12 @@ function togglePostMenu(postId) {
   const menu = document.getElementById(`post-menu-${postId}`);
   if (menu) {
     // Close all other menus
-    document.querySelectorAll('.post-menu').forEach(m => {
+    document.querySelectorAll(".post-menu").forEach((m) => {
       if (m.id !== `post-menu-${postId}`) {
-        m.style.display = 'none';
+        m.style.display = "none";
       }
     });
-    menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+    menu.style.display = menu.style.display === "none" ? "block" : "none";
   }
 }
 
@@ -488,7 +510,9 @@ function editPost(postId) {
   Swal.fire({
     title: "Edit Post",
     html: `
-      <textarea id="edit-post-text" class="swal2-textarea" placeholder="Edit your post...">${escapeHtml(post.text)}</textarea>
+      <textarea id="edit-post-text" class="swal2-textarea" placeholder="Edit your post...">${escapeHtml(
+        post.text
+      )}</textarea>
       <input type="file" id="edit-post-image" accept="image/*" class="swal2-file mt-3" />
     `,
     showCancelButton: true,
@@ -498,18 +522,18 @@ function editPost(postId) {
     preConfirm: () => {
       const text = document.getElementById("edit-post-text").value.trim();
       const imageFile = document.getElementById("edit-post-image").files[0];
-      
+
       if (!text && !imageFile && !post.image) {
         Swal.showValidationMessage("Please add some text or an image.");
         return false;
       }
-      
+
       return { text, imageFile };
     },
   }).then((result) => {
     if (result.isConfirmed) {
       post.text = result.value.text;
-      
+
       if (result.value.imageFile) {
         const reader = new FileReader();
         reader.onload = function (e) {
@@ -525,7 +549,7 @@ function editPost(postId) {
           });
         };
         reader.readAsDataURL(result.value.imageFile);
-} else {
+      } else {
         savePosts();
         renderPosts();
         Swal.fire({
@@ -538,9 +562,9 @@ function editPost(postId) {
       }
     }
   });
-  
+
   // Close menu
-  document.getElementById(`post-menu-${postId}`).style.display = 'none';
+  document.getElementById(`post-menu-${postId}`).style.display = "none";
 }
 
 // Delete post
@@ -575,12 +599,12 @@ function toggleCommentMenu(postId, commentId) {
   const menu = document.getElementById(`comment-menu-${commentId}`);
   if (menu) {
     // Close all other comment menus
-    document.querySelectorAll('.comment-menu').forEach(m => {
+    document.querySelectorAll(".comment-menu").forEach((m) => {
       if (m.id !== `comment-menu-${commentId}`) {
-        m.style.display = 'none';
+        m.style.display = "none";
       }
     });
-    menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+    menu.style.display = menu.style.display === "none" ? "block" : "none";
   }
 }
 
@@ -588,7 +612,7 @@ function toggleCommentMenu(postId, commentId) {
 function editComment(postId, commentId) {
   const post = posts.find((p) => p.id === postId);
   if (!post) return;
-  
+
   const comment = post.comments.find((c) => c.id === commentId);
   if (!comment) return;
 
@@ -610,13 +634,13 @@ function editComment(postId, commentId) {
       comment.text = result.value.trim();
       savePosts();
       renderPosts();
-      
+
       // Keep comments section open
       const commentsSection = document.getElementById(`comments-${postId}`);
       if (commentsSection) {
         commentsSection.style.display = "block";
       }
-      
+
       Swal.fire({
         icon: "success",
         title: "Comment Updated!",
@@ -626,9 +650,9 @@ function editComment(postId, commentId) {
       });
     }
   });
-  
+
   // Close menu
-  document.getElementById(`comment-menu-${commentId}`).style.display = 'none';
+  document.getElementById(`comment-menu-${commentId}`).style.display = "none";
 }
 
 // Delete comment
@@ -649,13 +673,13 @@ function deleteComment(postId, commentId) {
         post.comments = post.comments.filter((c) => c.id !== commentId);
         savePosts();
         renderPosts();
-        
+
         // Keep comments section open
         const commentsSection = document.getElementById(`comments-${postId}`);
         if (commentsSection) {
           commentsSection.style.display = "block";
         }
-        
+
         Swal.fire({
           icon: "success",
           title: "Comment Deleted!",
@@ -681,8 +705,8 @@ function logout() {
     cancelButtonText: "Cancel",
   }).then((result) => {
     if (result.isConfirmed) {
-  localStorage.removeItem("loggedInUser");
-  window.location.href = "./loginform/login.html";
+      localStorage.removeItem("loggedInUser");
+      window.location.href = "./loginform/login.html";
     }
   });
 }
