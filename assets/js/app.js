@@ -24,6 +24,9 @@ function init() {
   // Display user info
   displayUserInfo();
 
+  // Show or hide the remove avatar button
+  toggleRemoveAvatarBtn();
+
   // Load posts from localStorage
   loadPosts();
 
@@ -32,6 +35,12 @@ function init() {
 
   // Set up avatar upload handler
   setupAvatarUpload();
+
+  // Setup quick links sidebar toggle button
+  setupQuickLinksToggle();
+
+  // Setup remove avatar button click
+  setupRemoveAvatarBtn();
 
   // Close menus when clicking outside
   document.addEventListener("click", function (e) {
@@ -48,6 +57,86 @@ function init() {
       });
     }
   });
+
+  // Toggle Quick Links sidebar visibility on small screens
+  function setupQuickLinksToggle() {
+    const toggleBtn = document.getElementById("quickLinksToggleBtn");
+    const quickLinksSidebar = document.getElementById("quickLinksSidebar");
+    if (toggleBtn && quickLinksSidebar) {
+      toggleBtn.addEventListener("click", () => {
+        if (quickLinksSidebar.classList.contains("d-none")) {
+          quickLinksSidebar.classList.remove("d-none");
+          quickLinksSidebar.classList.add(
+            "d-block",
+            "position-fixed",
+            "bg-white",
+            "shadow",
+            "vh-100",
+            "overflow-auto"
+          );
+          quickLinksSidebar.style.top = "56px"; // below navbar
+          quickLinksSidebar.style.left = "0";
+          quickLinksSidebar.style.zIndex = "1050";
+          document.body.style.overflow = "hidden"; // prevent body scroll
+        } else {
+          quickLinksSidebar.classList.add("d-none");
+          quickLinksSidebar.classList.remove(
+            "d-block",
+            "position-fixed",
+            "bg-white",
+            "shadow",
+            "vh-100",
+            "overflow-auto"
+          );
+          quickLinksSidebar.style.top = "";
+          quickLinksSidebar.style.left = "";
+          quickLinksSidebar.style.zIndex = "";
+          document.body.style.overflow = ""; // restore scroll
+        }
+      });
+    }
+  }
+
+  // Show or hide remove avatar button
+  function toggleRemoveAvatarBtn() {
+    const avatar = localStorage.getItem(`avatar_${currentUser.email}`);
+    const removeBtn = document.getElementById("removeAvatarBtn");
+    if (removeBtn) {
+      removeBtn.style.display = avatar ? "block" : "none";
+    }
+  }
+
+  // Setup remove avatar button event handler
+  function setupRemoveAvatarBtn() {
+    const removeBtn = document.getElementById("removeAvatarBtn");
+    if (removeBtn) {
+      removeBtn.addEventListener("click", () => {
+        Swal.fire({
+          title: "Remove Avatar?",
+          text: "Are you sure you want to remove your profile avatar?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#d33",
+          cancelButtonColor: "#344F7E",
+          confirmButtonText: "Yes, remove it!",
+          cancelButtonText: "Cancel",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            localStorage.removeItem(`avatar_${currentUser.email}`);
+            displayAvatar();
+            toggleRemoveAvatarBtn();
+            Swal.fire({
+              icon: "success",
+              title: "Avatar removed!",
+              confirmButtonColor: "#344F7E",
+              timer: 1500,
+              showConfirmButton: false,
+            });
+          }
+        });
+      });
+    }
+  }
 }
 
 // Display user information
@@ -145,11 +234,12 @@ function setupImageUpload() {
   }
 }
 
-// Load posts from localStorage
+// Load posts from localStorage and filter posts by current user
 function loadPosts() {
   const savedPosts = localStorage.getItem("posts");
   if (savedPosts) {
-    posts = JSON.parse(savedPosts);
+    const allPosts = JSON.parse(savedPosts);
+    posts = allPosts.filter((post) => post.author.email === currentUser.email);
   } else {
     posts = [];
   }

@@ -1,13 +1,16 @@
 document
   .getElementById("loginForm")
   .addEventListener("submit", function (event) {
-    event.preventDefault();
+    event.preventDefault(); // default submission not working
+
     const errorEl = document.getElementById("loginError");
     errorEl.textContent = "";
 
     const emailValue = document.getElementById("loginEmail").value.trim();
+
     const passwordValue = document.getElementById("loginPass").value.trim();
 
+    // working as a required attribute
     if (!emailValue || !passwordValue) {
       Swal.fire({
         icon: "warning",
@@ -18,6 +21,7 @@ document
       return;
     }
 
+    // function on line 71 email checker regex
     if (!isValidEmail(emailValue)) {
       Swal.fire({
         icon: "warning",
@@ -28,16 +32,18 @@ document
       return;
     }
 
+    // password checker
     if (passwordValue.length < 6) {
       Swal.fire({
         icon: "warning",
         title: "Password Too Short",
-        text: "Password must be at least 6 characters long.",
+        text: "Password must be at least 6 characters long and use uppercase lowecase optional.",
         confirmButtonColor: "#344F7E",
       });
       return;
     }
 
+    // user email password checker for login
     const users = JSON.parse(localStorage.getItem("users")) || [];
     const user = users.find(
       (u) => u.email === emailValue && u.password === passwordValue
@@ -50,7 +56,7 @@ document
         title: "Login Successful!",
         text: "Welcome back!",
         confirmButtonColor: "#344F7E",
-        timer: 1500,
+        timer: 1000,
         showConfirmButton: false,
       }).then(() => {
         window.location.href = "../index.html";
@@ -65,18 +71,21 @@ document
     }
   });
 
+// email regex call in line 25
 function isValidEmail(email) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
 }
 
-// Show/Hide Password functionality
+// Show / Hide Password functionality
 document.addEventListener("DOMContentLoaded", function () {
+  // getting check box and password input with id
   const showPasswordCheckbox = document.getElementById("form1Example3");
   const passwordInput = document.getElementById("loginPass");
 
   if (showPasswordCheckbox && passwordInput) {
     showPasswordCheckbox.addEventListener("change", function () {
+      // showpassword check hoto input ki type text hojai gi
       if (this.checked) {
         passwordInput.type = "text";
       } else {

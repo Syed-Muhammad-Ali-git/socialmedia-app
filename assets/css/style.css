@@ -1,4 +1,18 @@
 /* Global Styles */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    padding-top: 56px;
+}
+
 :root {
     --primary-color: #344F7E;
     --secondary-color: #273A5C;
@@ -43,18 +57,7 @@
     background: linear-gradient(to right, var(--primary-color), var(--secondary-color)) !important;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    padding-top: 56px;
-}
 
 /* Navigation */
 .navbar {
@@ -590,6 +593,27 @@ body {
     max-height: 350px;
     overflow-y: auto;
     padding: 5px 0;
+    user-select: text;
+    /* To control color of selected text */
+}
+
+.comments-list::selection,
+.comments-list *::selection {
+    background-color: transparent;
+    /* Prevent blue highlight on selection */
+}
+
+.comment-menu {
+    position: absolute;
+    right: 0;
+    top: 3px;
+    /* Moved further up from 8px */
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    min-width: 130px;
+    z-index: 1000;
+    overflow: hidden;
 }
 
 .comment-item {
@@ -670,13 +694,23 @@ body {
 .comment-menu {
     position: absolute;
     right: 0;
-    top: 25px;
+    top: 8px;
     background: white;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     min-width: 130px;
     z-index: 1000;
     overflow: hidden;
+}
+
+.comment-text:hover {
+    text-decoration: none;
+    color: inherit;
+    outline: none;
+}
+
+.comment-text:focus {
+    outline: none;
 }
 
 .comment-menu button {
@@ -734,12 +768,38 @@ body {
     .sidebar {
         padding: 0 10px;
     }
+
+    /* Quick Links Sidebar toggle styles for small screens */
+    #quickLinksSidebar.d-none {
+        display: none !important;
+    }
+
+    #quickLinksSidebar.d-block {
+        position: fixed !important;
+        top: 56px;
+        /* height of navbar */
+        left: 0;
+        height: calc(100vh - 56px);
+        width: 250px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+        overflow-y: auto;
+        z-index: 1050;
+        padding: 1rem;
+    }
+
+    /* Make sure main container has some left margin when sidebar visible */
+    body:not(.quickLinksOpen) #quickLinksSidebar.d-block+.main-container {
+        margin-left: 0;
+    }
 }
 
 @media (max-width: 768px) {
     .main-container {
-        padding: 0 5px;  /* Reduce horizontal padding to avoid horizontal scroll caused by Bootstrap row negative margins */
-        overflow-x: hidden; /* Prevent horizontal overflow */
+        padding: 0 5px;
+        /* Reduce horizontal padding to avoid horizontal scroll caused by Bootstrap row negative margins */
+        overflow-x: hidden;
+        /* Prevent horizontal overflow */
     }
 
     .feed-container {

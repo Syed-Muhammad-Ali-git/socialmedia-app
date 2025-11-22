@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login-form</title>
+    <title>Social Network - Log in</title>
 
     <!-- bootstrap css link -->
     <link
@@ -34,30 +34,36 @@
               alt="Phone image"
             />
           </div>
+
           <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+            <!-- form start -->
+
             <form id="loginForm">
               <!-- Email input -->
+
               <div data-mdb-input-init class="form-outline mb-4">
-                <label class="form-label" for="loginEmail">Email address</label>
+                <label class="form-label text-light" for="loginEmail"
+                  >Email address</label
+                >
                 <input
                   type="email"
                   id="loginEmail"
                   class="form-control form-control-lg"
                   placeholder="abc@gmail.com"
-                  required
                   autofocus
                 />
               </div>
 
               <!-- Password input -->
               <div data-mdb-input-init class="form-outline mb-4">
-                <label class="form-label" for="loginPass">Password</label>
+                <label class="form-label text-light" for="loginPass"
+                  >Password</label
+                >
                 <input
                   type="password"
                   id="loginPass"
                   class="form-control form-control-lg"
                   placeholder="******"
-                  required
                 />
               </div>
 
@@ -72,14 +78,19 @@
                     value=""
                     id="form1Example3"
                   />
-                  <label class="form-check-label outline" for="form1Example3">
+                  <label
+                    class="form-check-label outline text-light"
+                    for="form1Example3"
+                  >
                     Show Password
                   </label>
                 </div>
+
                 <a
                   href="#"
                   data-bs-toggle="modal"
                   data-bs-target="#forgotPasswordModal"
+                  class="text-light"
                   >Forgot password?</a
                 >
               </div>
