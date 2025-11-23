@@ -238,8 +238,7 @@ function setupImageUpload() {
 function loadPosts() {
   const savedPosts = localStorage.getItem("posts");
   if (savedPosts) {
-    const allPosts = JSON.parse(savedPosts);
-    posts = allPosts.filter((post) => post.author.email === currentUser.email);
+    posts = JSON.parse(savedPosts);
   } else {
     posts = [];
   }
